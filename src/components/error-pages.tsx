@@ -1,0 +1,55 @@
+import {
+  Link,
+  useRouter,
+  type ErrorComponentProps,
+} from '@tanstack/react-router'
+import { Button } from '@/components/ui/button'
+
+export function NotFoundPage() {
+  return (
+    <div className="grid min-h-[60svh] place-items-center px-6 py-16">
+      <div className="max-w-md space-y-6 text-center">
+        <p className="text-sm font-medium text-muted-foreground">404</p>
+        <h1 className="text-3xl font-semibold tracking-tight">
+          Página não encontrada
+        </h1>
+        <p className="text-muted-foreground">
+          Esta página não existe. Confira o endereço ou volte ao acervo.
+        </p>
+        <Button asChild>
+          <Link to="/">Voltar ao acervo</Link>
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+export function RouteErrorPage({ reset }: ErrorComponentProps) {
+  const router = useRouter()
+
+  return (
+    <div className="grid min-h-[60svh] place-items-center px-6 py-16">
+      <div className="max-w-md space-y-6 text-center">
+        <h1 className="text-3xl font-semibold tracking-tight">
+          Não foi possível carregar a página
+        </h1>
+        <p role="alert" className="text-muted-foreground">
+          Tente novamente ou volte ao acervo.
+        </p>
+        <div className="flex flex-wrap justify-center gap-3">
+          <Button
+            onClick={() => {
+              void router.invalidate()
+              reset()
+            }}
+          >
+            Tentar novamente
+          </Button>
+          <Button variant="outline" asChild>
+            <a href="/">Voltar ao acervo</a>
+          </Button>
+        </div>
+      </div>
+    </div>
+  )
+}
